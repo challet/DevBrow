@@ -1,4 +1,7 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Notes
+
+* The interface has been built with https://github.com/Semantic-Org/Semantic-UI (it has the same purpose than Bootstrap) and https://github.com/Semantic-Org/Semantic-UI-React
+* This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
 
