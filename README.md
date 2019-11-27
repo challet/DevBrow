@@ -1,7 +1,12 @@
 ## Notes
 
-* The interface has been built with https://github.com/Semantic-Org/Semantic-UI (it has the same purpose than Bootstrap) and https://github.com/Semantic-Org/Semantic-UI-React
+* The interface has been built with https://github.com/Semantic-Org/Semantic-UI-React (it has the same purpose than Bootstrap) and https://github.com/Semantic-Org/Semantic-UI-CSS (default build, for cusom build please use https://github.com/Semantic-Org/Semantic-UI)
 * This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+### Issues found
+
+* https://github.com/Semantic-Org/Semantic-UI/issues/6902
+
 
 ## Available Scripts
 
