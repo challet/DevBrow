@@ -1,9 +1,21 @@
 import React from 'react';
-import { Input } from 'semantic-ui-react'
+import { Form, Input, Checkbox, Popup } from 'semantic-ui-react'
 
 function DevSearch() {
   return (
-    <Input fluid icon='search' iconPosition='left' placeholder='Search …' />
+    <Form>
+      <Form.Field>
+        <Input 
+          fluid
+          icon='search'
+          iconPosition='left'
+          placeholder='Search …'
+        />
+      </Form.Field>
+      <Form.Field>
+        <Checkbox toggle label="Online mode"/>
+      </Form.Field>
+    </Form>
   );
 }
 

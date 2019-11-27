@@ -1,3 +1,12 @@
+.list-container ul.ui.list {
+  list-style: none;
+  margin-left: 0;
+}
+
+.list-container ul.ui.list li::before {
+  content: none;
+}
+
 .details-container h3.ui.header { 
   margin-top: 0;
 }
