@@ -1,6 +1,6 @@
 import React from 'react';
 import { Segment, List, Image } from 'semantic-ui-react';
-import DevSearch from './DevSearch'
+import DevSearch from './DevSearch';
 
 function DevList() {
   return (
