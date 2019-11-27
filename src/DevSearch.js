@@ -1,22 +1,32 @@
 import React from 'react';
-import { Form, Input, Checkbox, Popup } from 'semantic-ui-react'
+import { Form, Input, Checkbox } from 'semantic-ui-react'
 
-function DevSearch() {
-  return (
-    <Form>
-      <Form.Field>
-        <Input 
-          fluid
-          icon='search'
-          iconPosition='left'
-          placeholder='Search …'
-        />
-      </Form.Field>
-      <Form.Field>
-        <Checkbox toggle label="Online mode"/>
-      </Form.Field>
-    </Form>
-  );
+class DevSearch extends React.Component {
+  
+  render() {
+    return (
+      <Form>
+        <Form.Field>
+          <Input
+            fluid
+            disabled={ !this.props.online }
+            icon='search'
+            iconPosition='left'
+            placeholder='Search …'
+          />
+        </Form.Field>
+        <Form.Field>
+          <Checkbox 
+            toggle
+            checked={ this.props.online }
+            label="Online mode" 
+            onClick={ () => this.props.setOnlineMode(!this.props.online) }
+          />
+        </Form.Field>
+      </Form>
+    );
+  }
+  
 }
 
 export default DevSearch;
