@@ -18,6 +18,7 @@ class DevSearch extends React.Component {
   componentDidUpdate(prevProps) {
     // load more data when the user has changed
     if (this.props.online !== prevProps.online) {
+      this.setState({ searching: true });
       this.performSearch();
     }
   }
@@ -40,7 +41,7 @@ class DevSearch extends React.Component {
       this.search_timer = null;
       // actually perform the search
       this.performSearch();
-    }, 200);
+    }, 250);
     
     this.setState({
       searching: true,
@@ -87,7 +88,23 @@ class DevSearch extends React.Component {
       // nothing more to do here
       this.setState({ searching: false });
     } else {
-      // TODO
+      // async fetch
+      (async () => {
+        try {
+          const response = await fetch(`https://api.github.com/search/users?q=${encodeURIComponent(this.state.current_search)}`);
+          const json = await response.json();
+          return Promise.resolve(json);
+        } catch (e) {
+          console.error(e);
+          return Promise.reject(e);
+        }
+      })().then((data) => {
+        console.log(data);
+        this.setState({
+          users: data.items,
+          searching: false
+        });
+      });
     }
   }
   
@@ -120,6 +137,7 @@ class DevSearch extends React.Component {
           selected={ this.props.selected }
           selectUser={ this.props.selectUser }
           online={ this.props.online }
+          searching={ this.state.searching }
         />
       </Segment>
     );

@@ -16,21 +16,21 @@ class DevRepositories extends React.Component {
         </Label>;
       }
     
-      if (repo.watchers_count != 0) {
+      if (repo.watchers_count !== 0) {
         watchers = <Label>
           <Icon name="eye" />Watchers
           <Label.Detail>{ repo.watchers_count }</Label.Detail>
         </Label>;
       }
     
-      if (repo.stargazers_count != 0) {
+      if (repo.stargazers_count !== 0) {
         stars = <Label>
           <Icon name="star" />Stars 
           <Label.Detail>{ repo.stargazers_count }</Label.Detail>
         </Label>;
       }
     
-      if (repo.forks_count != 0 || !repo.fork) {
+      if (repo.forks_count !== 0 || !repo.fork) {
         forks = <Label>
           <Icon name="fork" color={ repo.fork ? null : "yellow" }/>Forks 
           <Label.Detail>{ repo.forks_count }</Label.Detail>
