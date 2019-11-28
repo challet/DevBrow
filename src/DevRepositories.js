@@ -9,7 +9,7 @@ class DevRepositories extends React.Component {
     
     if (repo.language) {
       group.push(
-        <Label image>
+        <Label image key="keyboard">
           <Icon name="keyboard" />Language 
           <Label.Detail>{ repo.language }</Label.Detail>
         </Label>
@@ -18,7 +18,7 @@ class DevRepositories extends React.Component {
     
     if (repo.license !== null) {
       group.push( 
-        <Label image>
+        <Label image key="book">
           <Icon name="book" />License 
           <Label.Detail>{ repo.license.spdx_id }</Label.Detail>
         </Label>
@@ -27,7 +27,7 @@ class DevRepositories extends React.Component {
     
     if (repo.watchers_count !== 0) {
       group.push( 
-        <Label image>
+        <Label image key="eye">
           <Icon name="eye" />Watchers
           <Label.Detail>{ repo.watchers_count }</Label.Detail>
         </Label>
@@ -36,7 +36,7 @@ class DevRepositories extends React.Component {
   
     if (repo.stargazers_count !== 0) {
       group.push(
-        <Label image>
+        <Label image key="star">
           <Icon name="star" />Stars 
           <Label.Detail>{ repo.stargazers_count }</Label.Detail>
         </Label>
@@ -45,7 +45,7 @@ class DevRepositories extends React.Component {
   
     if (repo.forks_count !== 0) {
       group.push( 
-        <Label image>
+        <Label image key="fork">
           <Icon name="fork" />Forks 
           <Label.Detail>{ repo.forks_count }</Label.Detail>
         </Label>
@@ -69,7 +69,7 @@ class DevRepositories extends React.Component {
   renderRepo(repo) {
     const oc = !repo.fork ? <Label corner="right" size="mini"><Icon name="star" color="yellow" /></Label> : null;
     return (
-      <Card as="li">
+      <Card as="li" key={ repo.id }>
         { oc }
         <Card.Content>
           <Card.Header as="h3">
