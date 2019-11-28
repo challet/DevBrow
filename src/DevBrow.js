@@ -10,7 +10,8 @@ class DevBrow extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      displayed_user: null
+      displayed_user: null,
+      online: false
     };
   }
   
@@ -18,6 +19,10 @@ class DevBrow extends React.Component {
     this.setState({
       displayed_user: user
     });
+  }
+  
+  setOnlineMode(online) {
+    this.setState({ online });
   }
   
   render() {
@@ -29,14 +34,22 @@ class DevBrow extends React.Component {
             <Header as="h2" textAlign="center">
               <Icon name="list" />Users list
             </Header>
-            <DevSearch selected={ this.state.displayed_user } selectUser={ this.selectUser.bind(this) } />
+            <DevSearch 
+              selected={ this.state.displayed_user }
+              selectUser={ this.selectUser.bind(this) }
+              online={ this.state.online }
+              setOnlineMode={ this.setOnlineMode.bind(this) }
+            />
           </Grid.Column>
 
           <Grid.Column width={11} as="article" className="details-container">
             <Header as="h2" textAlign="center">
               <Icon name="user" />User details
             </Header>
-            <DevDetails user={ this.state.displayed_user } />
+            <DevDetails 
+              user={ this.state.displayed_user }
+              online={ this.state.online }
+            />
           </Grid.Column>
 
         </Grid>

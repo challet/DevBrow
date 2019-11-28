@@ -8,7 +8,6 @@ class DevSearch extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      online: false,
       searching: false,
       current_search: '',
       users: offlineUsers.items
@@ -16,9 +15,11 @@ class DevSearch extends React.Component {
     this.search_timer = null;
   }
   
-  setOnlineMode(online) {
-    this.setState({ online });
-    this.performSearch(online);
+  componentDidUpdate(prevProps) {
+    // load more data when the user has changed
+    if (this.props.online !== prevProps.online) {
+      this.performSearch();
+    }
   }
   
   /*
@@ -38,8 +39,8 @@ class DevSearch extends React.Component {
       // reset a delay having been reached
       this.search_timer = null;
       // actually perform the search
-      this.performSearch(this.state.online);
-    }, 100);
+      this.performSearch();
+    }, 200);
     
     this.setState({
       searching: true,
@@ -51,7 +52,7 @@ class DevSearch extends React.Component {
    *  Perform a search by routing what method to use (online/offline)
    */
   performSearch(online) {
-    if (online) {
+    if (this.props.online) {
       this.onlineSearch();
     } else {
       this.offlineSearch();
@@ -109,7 +110,7 @@ class DevSearch extends React.Component {
               toggle
               checked={ this.props.online }
               label="Online mode" 
-              onClick={ () => this.setOnlineMode(!this.state.online) }
+              onClick={ () => this.props.setOnlineMode(!this.props.online) }
             />
           </Form.Field>
         </Form>
@@ -118,7 +119,7 @@ class DevSearch extends React.Component {
           users={ this.state.users }
           selected={ this.props.selected }
           selectUser={ this.props.selectUser }
-          online={ this.state.online }
+          online={ this.props.online }
         />
       </Segment>
     );
