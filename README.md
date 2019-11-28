@@ -4,6 +4,13 @@
 * There is a [search module](https://react.semantic-ui.com/modules/search/) that could be used as a more direct way for the [DevSearch](src/DevSearch.js) component.
 * This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+### Possible additions
+
+* Paginate the users list (`?page` query parameter)
+* Get the full user data (`users/{id}` endpoint)
+* Display followers, following, organizations, gists and starred repos as new sections aside the repositories level
+* Cache requested data
+
 ### Issues found
 
 * https://github.com/Semantic-Org/Semantic-UI/issues/6902

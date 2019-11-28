@@ -1,7 +1,9 @@
 import React from 'react';
-import { Form, Segment, Divider, Input, Checkbox } from 'semantic-ui-react'
+import { Form, Segment, Divider, Input, Checkbox } from 'semantic-ui-react';
 import DevList from './DevList';
-import offlineUsers from './data/users.json';
+import restData from './restData';
+
+const KEY_TYPE_DELAY = 200;
 
 class DevSearch extends React.Component {
   
@@ -10,9 +12,12 @@ class DevSearch extends React.Component {
     this.state = {
       searching: false,
       current_search: '',
-      users: offlineUsers.items
+      users: []
     };
+    // used in requestSearch function
     this.search_timer = null;
+    // 
+    this.performSearch();
   }
   
   componentDidUpdate(prevProps) {
@@ -24,13 +29,12 @@ class DevSearch extends React.Component {
   }
   
   /*
-   * Start a search
+   * Request a search
    * it uses a small delay in order not to fire a useless search
    * in case a new search will be requested soon
    * for instance between two key press when a word is being typed
-   *
    */
-  startSearch(query) {
+  requestSearch(query) {
     // cancel a previous delay
     if (this.search_timer !== null) {
       clearTimeout(this.search_timer);
@@ -41,8 +45,9 @@ class DevSearch extends React.Component {
       this.search_timer = null;
       // actually perform the search
       this.performSearch();
-    }, 250);
+    }, KEY_TYPE_DELAY);
     
+    // still update the state
     this.setState({
       searching: true,
       current_search: query
@@ -50,62 +55,17 @@ class DevSearch extends React.Component {
   }
   
   /*
-   *  Perform a search by routing what method to use (online/offline)
+   *  Perform an async search and update the state
    */
-  performSearch(online) {
-    if (this.props.online) {
-      this.onlineSearch();
-    } else {
-      this.offlineSearch();
-    }
-  }
-  
-  /*
-   *  Search users from a local json file
-   *  No search query : display them all
-   */
-  offlineSearch() {
-    let users;
-    if (this.state.current_search === '') {
-      users = offlineUsers.items;
-    } else {
-      users = offlineUsers.items.filter((user) => user.login.indexOf(this.state.current_search) !== -1);
-    }
-    this.setState({
-      users,
-      searching: false
-    });
-  }
-  
-  /*
-   *  Search users from a local json file
-   *  No search query : display none
-   */
-  onlineSearch() {
-    // flush results
-    this.setState({ users: [] });
-    if (this.state.current_search === '') {
-      // nothing more to do here
-      this.setState({ searching: false });
-    } else {
-      // async fetch
-      (async () => {
-        try {
-          const response = await fetch(`https://api.github.com/search/users?q=${encodeURIComponent(this.state.current_search)}`);
-          const json = await response.json();
-          return Promise.resolve(json);
-        } catch (e) {
-          console.error(e);
-          return Promise.reject(e);
-        }
-      })().then((data) => {
-        console.log(data);
+  performSearch() {
+    restData.searchUser(this.state.current_search, this.props.online)
+      .then((users) => {
+        console.log(users);
         this.setState({
-          users: data.items,
+          users: users.items,
           searching: false
         });
       });
-    }
   }
   
   render() {
@@ -119,7 +79,7 @@ class DevSearch extends React.Component {
               iconPosition='left'
               placeholder='Search …'
               loading={ this.state.searching }
-              onChange={ (event, data) => this.startSearch(data.value) }
+              onChange={ (event, data) => this.requestSearch(data.value) }
             />
           </Form.Field>
           <Form.Field>

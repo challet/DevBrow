@@ -1,7 +1,7 @@
 import React from 'react';
 import { Segment, Header, Image, Divider, Message, Icon } from 'semantic-ui-react';
 import DevRepositories from './DevRepositories';
-import offlineRepositories from './data/repositories.json';
+import restData from './restData';
 
 class DevDetails extends React.Component {
   
@@ -15,18 +15,17 @@ class DevDetails extends React.Component {
   componentDidUpdate(prevProps) {
     // load more data when the user has changed
     if (this.props.user !== prevProps.user) {
-      this.fetchDetails(this.props.userID);
+      this.fetchDetails();
     }
   }
   
   fetchDetails() {
-    if (this.props.online) {
-      // TODO
-    } else {
-      this.setState({
-        repositories: offlineRepositories.filter((repo) => repo.owner.id === this.props.user.id)
+    restData.getRepositories(this.props.user, this.props.online)
+      .then((repositories) => {
+        this.setState({
+          repositories
+        });
       });
-    }
   }
   
   render() {
