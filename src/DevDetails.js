@@ -50,10 +50,11 @@ class DevDetails extends React.Component {
             floated="left"
           />
           <Header as="h1">
-            <Header.Content>{ this.props.user.login }</Header.Content>
-            <a href={ this.props.user.html_url } target="_blank" rel="noopener noreferrer" >
-              <Icon link name="external" size="tiny" />
-            </a>
+            <Header.Content>
+              <a href={ this.props.user.html_url } target="_blank" rel="noopener noreferrer" >
+                { this.props.user.login }
+              </a>
+            </Header.Content>
           </Header>
           <Divider clearing />
           <DevRepositories repositories={ this.state.repositories } />

@@ -1,9 +1,10 @@
-.browser-container .ui.list {
+.browser-container ul, .browser-container ol.ui.list {
   list-style: none;
   margin-left: 0;
+  padding-left: 0;
 }
 
-.browser-container .ui.list li::before {
+.browser-container ul li::before, .browser-container ol.ui.list li::before {
   content: none;
 }
 
@@ -18,8 +19,4 @@
 
 .details-container .ui.card .horizontal.label { 
   vertical-align: bottom;
-}
-
-.details-container .ui.card .ui.list .ui.label .detail {
-  font-size: 1.1em;
 }

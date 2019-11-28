@@ -1,69 +1,91 @@
 import React from 'react';
-import { Card, Label, List, Icon } from 'semantic-ui-react';
+import { Card, Header, Label, Icon } from 'semantic-ui-react';
+import moment from 'moment';
 
 class DevRepositories extends React.Component {
 
   renderLabels(repo) {
-    if (!repo.license && !repo.watchers_count && !repo.stargazers_count && !repo.forks_count) {
-      return null;
-    } else {
-      let watchers, stars, forks, license;
+    let group = [];
     
-      if (repo.license !== null) {
-        license = <Label>
+    if (repo.language) {
+      group.push(
+        <Label image>
+          <Icon name="keyboard" />Language 
+          <Label.Detail>{ repo.language }</Label.Detail>
+        </Label>
+      );
+    }
+    
+    if (repo.license !== null) {
+      group.push( 
+        <Label image>
           <Icon name="book" />License 
           <Label.Detail>{ repo.license.spdx_id }</Label.Detail>
-        </Label>;
-      }
+        </Label>
+      );
+    }
     
-      if (repo.watchers_count !== 0) {
-        watchers = <Label>
+    if (repo.watchers_count !== 0) {
+      group.push( 
+        <Label image>
           <Icon name="eye" />Watchers
           <Label.Detail>{ repo.watchers_count }</Label.Detail>
-        </Label>;
-      }
-    
-      if (repo.stargazers_count !== 0) {
-        stars = <Label>
+        </Label>
+      );
+    }
+  
+    if (repo.stargazers_count !== 0) {
+      group.push(
+        <Label image>
           <Icon name="star" />Stars 
           <Label.Detail>{ repo.stargazers_count }</Label.Detail>
-        </Label>;
-      }
-    
-      if (repo.forks_count !== 0 || !repo.fork) {
-        forks = <Label>
-          <Icon name="fork" color={ repo.fork ? null : "yellow" }/>Forks 
-          <Label.Detail>{ repo.forks_count }</Label.Detail>
-        </Label>;
-      }
-    
-      return (
-        <Label.Group size="tiny">
-          { license }
-          { watchers }
-          { stars }
-          { forks }
-        </Label.Group>
+        </Label>
       );
+    }
+  
+    if (repo.forks_count !== 0) {
+      group.push( 
+        <Label image>
+          <Icon name="fork" />Forks 
+          <Label.Detail>{ repo.forks_count }</Label.Detail>
+        </Label>
+      );
+    }
+    
+    // grouped labels
+    if (group.length) {
+      return (
+        <Card.Content extra>
+          <Label.Group size="tiny">
+            { group }
+          </Label.Group>
+        </Card.Content>
+      )
+    } else {
+      return null;
     }
   }
 
   renderRepo(repo) {
+    const oc = !repo.fork ? <Label corner="right" size="mini"><Icon name="star" color="yellow" /></Label> : null;
     return (
-      <List.Item key={repo.id}>
-        <List.Content>
-          <List.Header as="h4">
-            { repo.name }
+      <Card as="li">
+        { oc }
+        <Card.Content>
+          <Card.Header as="h3">
             <a href={ repo.html_url } target="_blank" rel="noopener noreferrer" >
-              <Icon link name="external" size="small" />
+              { repo.name }
             </a>
-            { this.renderLabels(repo) }
-          </List.Header>
-          <List.Description>
+          </Card.Header>
+          <Card.Meta>
+            <span className='date'>Since { moment(repo.created_at).format("MMMM YYYY") }</span>
+          </Card.Meta>
+          <Card.Description>
             { repo.description }
-          </List.Description>
-        </List.Content>
-      </List.Item>
+          </Card.Description>
+        </Card.Content>
+        { this.renderLabels(repo) }
+      </Card>
     ); 
   }
 
@@ -72,19 +94,15 @@ class DevRepositories extends React.Component {
       return null;
     } else {
       return (
-        <Card>
-          <Card.Content>
-            <Card.Header as="h3">
-              <Label horizontal as="span">{ this.props.repositories.length }</Label>
-              Repositories
-            </Card.Header>
-            <Card.Description>
-              <List relaxed divided>
-                { this.props.repositories.map(this.renderRepo.bind(this)) }
-              </List>
-            </Card.Description>
-          </Card.Content>
-        </Card>
+        <div>
+          <Header as="h3">
+            <Label horizontal as="span">{ this.props.repositories.length }</Label>
+            Repositories
+          </Header>
+          <Card.Group as="ul" itemsPerRow={3}>
+            { this.props.repositories.map(this.renderRepo.bind(this)) }
+          </Card.Group>
+        </div>
       );
     }
   }

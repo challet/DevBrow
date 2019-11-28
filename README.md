@@ -10,6 +10,7 @@
 * Get the full user data (`users/{id}` endpoint)
 * Display followers, following, organizations, gists and starred repos as new sections aside the repositories level
 * Cache requested data
+* Internationalization
 
 ### Issues found
 
