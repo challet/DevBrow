@@ -9,10 +9,11 @@ class DevSearch extends React.Component {
         <Form.Field>
           <Input
             fluid
-            disabled={ !this.props.online }
             icon='search'
             iconPosition='left'
             placeholder='Search …'
+            loading={ this.props.searching }
+            onChange={ (event, data) => this.props.startSearch(data.value) }
           />
         </Form.Field>
         <Form.Field>

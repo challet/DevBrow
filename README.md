@@ -1,6 +1,7 @@
 ## Notes
 
-* The interface has been built with https://github.com/Semantic-Org/Semantic-UI-React (it has the same purpose than Bootstrap) and https://github.com/Semantic-Org/Semantic-UI-CSS (default build, for cusom build please use https://github.com/Semantic-Org/Semantic-UI)
+* The interface has been built with https://github.com/Semantic-Org/Semantic-UI-React (it has the same purpose than Bootstrap) and https://github.com/Semantic-Org/Semantic-UI-CSS (default build, for cusom build please use https://github.com/Semantic-Org/Semantic-UI).
+* There is a [search module](https://react.semantic-ui.com/modules/search/) that could be used as a more direct way for the [DevSearch](src/DevSearch.js) component.
 * This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ### Issues found
