@@ -1,6 +1,6 @@
 import React from 'react';
 import { Container, Grid, Header, Icon } from 'semantic-ui-react';
-import DevList from './DevList';
+import DevSearch from './DevSearch';
 import DevDetails from './DevDetails';
 import 'semantic-ui-css/semantic.min.css';
 import './tweak.css';
@@ -29,7 +29,7 @@ class DevBrow extends React.Component {
             <Header as="h2" textAlign="center">
               <Icon name="list" />Users list
             </Header>
-            <DevList selected={ this.state.displayed_user } selectUser={ this.selectUser.bind(this) } />
+            <DevSearch selected={ this.state.displayed_user } selectUser={ this.selectUser.bind(this) } />
           </Grid.Column>
 
           <Grid.Column width={11} as="article" className="details-container">
