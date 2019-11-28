@@ -17,14 +17,12 @@ class DevSearch extends React.Component {
   }
   
   setOnlineMode(online) {
-    this.setState({
-      online,
-    });
-    this.performSearch();
+    this.setState({ online });
+    this.performSearch(online);
   }
   
   /*
-   * Perform a search
+   * Start a search
    * it uses a small delay in order not to fire a useless search
    * in case a new search will be requested soon
    * for instance between two key press when a word is being typed
@@ -40,7 +38,7 @@ class DevSearch extends React.Component {
       // reset a delay having been reached
       this.search_timer = null;
       // actually perform the search
-      this.performSearch();
+      this.performSearch(this.state.online);
     }, 100);
     
     this.setState({
@@ -52,8 +50,8 @@ class DevSearch extends React.Component {
   /*
    *  Perform a search by routing what method to use (online/offline)
    */
-  performSearch() {
-    if (this.state.online) {
+  performSearch(online) {
+    if (online) {
       this.onlineSearch();
     } else {
       this.offlineSearch();
@@ -66,10 +64,10 @@ class DevSearch extends React.Component {
    */
   offlineSearch() {
     let users;
-    if (this.state.current_search) {
-      users = offlineUsers.items.filter((user) => user.login.indexOf(this.state.current_search) !== -1);
+    if (this.state.current_search === '') {
+      users = offlineUsers.items;
     } else {
-      users = offlineUsers
+      users = offlineUsers.items.filter((user) => user.login.indexOf(this.state.current_search) !== -1);
     }
     this.setState({
       users,
@@ -84,7 +82,7 @@ class DevSearch extends React.Component {
   onlineSearch() {
     // flush results
     this.setState({ users: [] });
-    if (!this.state.current_search) {
+    if (this.state.current_search === '') {
       // nothing more to do here
       this.setState({ searching: false });
     } else {
@@ -96,7 +94,7 @@ class DevSearch extends React.Component {
     return (
       <Segment>
         <Form>
-          <Form.Field error={ !this.state.searching && this.state.current_search && this.state.users.length === 0 }>
+          <Form.Field error={ !this.state.searching && this.state.current_search !== '' && this.state.users.length === 0 }>
             <Input
               fluid
               icon='search'
