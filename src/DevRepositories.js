@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, Header, Label, Icon } from 'semantic-ui-react';
+import { Card, Header, Label, Icon, Dimmer, Loader } from 'semantic-ui-react';
 import moment from 'moment';
 
 class DevRepositories extends React.Component {
@@ -90,10 +90,9 @@ class DevRepositories extends React.Component {
   }
 
   render() {
-    if (this.props.repositories.length === 0) {
-      return null;
-    } else {
-      return (
+    let content;
+    if (!this.props.loading || this.props.repositories.length !== 0) {
+      content = (
         <div>
           <Header as="h3">
             <Label horizontal as="span">{ this.props.repositories.length }</Label>
@@ -104,7 +103,16 @@ class DevRepositories extends React.Component {
           </Card.Group>
         </div>
       );
+    } else {
+      content = null;
     }
+    
+    return (
+      <Dimmer.Dimmable as="div" dimmed={ this.props.loading }>
+        <Dimmer inverted active={ this.props.loading }><Loader /></Dimmer>
+        { content }
+      </Dimmer.Dimmable>
+    );
   }
 
 }

@@ -8,7 +8,8 @@ class DevDetails extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      repositories: []
+      repositories: [],
+      loading: false
     };
   }
   
@@ -23,9 +24,14 @@ class DevDetails extends React.Component {
     restData.getRepositories(this.props.user, this.props.online)
       .then((repositories) => {
         this.setState({
-          repositories
+          repositories,
+          loading: false
         });
       });
+    this.setState({ 
+      repositories: [],
+      loading: true
+    });
   }
   
   render() {
@@ -55,7 +61,7 @@ class DevDetails extends React.Component {
             </Header.Content>
           </Header>
           <Divider clearing />
-          <DevRepositories repositories={ this.state.repositories } />
+          <DevRepositories repositories={ this.state.repositories } loading={ this.state.loading }/>
         </div>
       );
     }

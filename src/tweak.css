@@ -17,6 +17,14 @@
   vertical-align: super;
 }
 
+.details-container .ui.card .content {
+  overflow: hidden;
+}
+
 .details-container .ui.card .horizontal.label { 
   vertical-align: bottom;
+}
+
+.details-container .dimmable {
+  min-height: 12em;
 }
