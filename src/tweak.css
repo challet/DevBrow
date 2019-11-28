@@ -16,3 +16,6 @@
   vertical-align: super;
 }
 
+.details-container .ui.card .horizontal.label { 
+  vertical-align: bottom;
+}

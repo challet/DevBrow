@@ -1,14 +1,32 @@
 import React from 'react';
-import { List } from 'semantic-ui-react';
+import { Card, Label, List } from 'semantic-ui-react';
 
-function DevRepositories() {
-  return (
-    <List celled>
-      <List.Item>Apples</List.Item>
-      <List.Item>Pears</List.Item>
-      <List.Item>Oranges</List.Item>
-    </List>
-  );
+function DevRepositories(props) {
+  if (props.repositories.length === 0) {
+    return null;
+  } else {
+    return (
+      <Card>
+        <Card.Content>
+          <Card.Header as="h3">
+            <Label horizontal as="span">{ props.repositories.length }</Label>
+            Repositories
+          </Card.Header>
+          <Card.Description>
+            <List divided>
+              { props.repositories.map((repo) => {
+                return (
+                  <List.Item key={repo.id}>
+                    { repo.name }
+                  </List.Item>
+                ); 
+              })}
+            </List>
+          </Card.Description>
+        </Card.Content>
+      </Card>
+    );
+  }
 }
 
 export default DevRepositories;
