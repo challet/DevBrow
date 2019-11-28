@@ -1,9 +1,9 @@
-.list-container ul.ui.list {
+.browser-container .ui.list {
   list-style: none;
   margin-left: 0;
 }
 
-.list-container ul.ui.list li::before {
+.browser-container .ui.list li::before {
   content: none;
 }
 
@@ -11,11 +11,15 @@
   margin-top: 0;
 }
 
-.details-container h1.ui.header i.icon { 
-  margin-left: .75rem;
+.details-container i.external.link.icon { 
+  margin-left: .25rem;
   vertical-align: super;
 }
 
 .details-container .ui.card .horizontal.label { 
   vertical-align: bottom;
+}
+
+.details-container .ui.card .ui.list .ui.label .detail {
+  font-size: 1.1em;
 }

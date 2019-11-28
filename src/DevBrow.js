@@ -27,7 +27,7 @@ class DevBrow extends React.Component {
   
   render() {
     return (
-      <Container as="section">
+      <Container as="section" className="browser-container">
         <Grid stackable padded columns={2}>
 
           <Grid.Column width={5} as="aside" className="list-container">

@@ -24,7 +24,7 @@ class DevList extends React.Component {
   render() {
     if (this.props.users.length) {
       return (
-        <List animated selection as="ul" verticalAlign='middle'>
+        <List animated selection as="ol" verticalAlign='middle'>
           { this.props.users.map(this.renderUser.bind(this)) }
         </List>
       );
