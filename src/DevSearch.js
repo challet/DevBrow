@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Segment, Divider, Input, Checkbox } from 'semantic-ui-react';
+import { Form, Divider, Input, Checkbox } from 'semantic-ui-react';
 import DevList from './DevList';
 import restData from './restData';
 
@@ -60,7 +60,6 @@ class DevSearch extends React.Component {
   performSearch() {
     restData.searchUser(this.state.current_search, this.props.online)
       .then((users) => {
-        console.log(users);
         this.setState({
           users: users.items,
           searching: false
@@ -70,7 +69,7 @@ class DevSearch extends React.Component {
   
   render() {
     return (
-      <Segment>
+      <div>
         <Form>
           <Form.Field error={ !this.state.searching && this.state.current_search !== '' && this.state.users.length === 0 }>
             <Input
@@ -99,7 +98,7 @@ class DevSearch extends React.Component {
           online={ this.props.online }
           searching={ this.state.searching }
         />
-      </Segment>
+      </div>
     );
   }
   

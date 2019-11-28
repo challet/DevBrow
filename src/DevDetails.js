@@ -1,5 +1,5 @@
 import React from 'react';
-import { Segment, Header, Image, Divider, Message, Icon } from 'semantic-ui-react';
+import { Header, Image, Divider, Message } from 'semantic-ui-react';
 import DevRepositories from './DevRepositories';
 import restData from './restData';
 
@@ -31,17 +31,15 @@ class DevDetails extends React.Component {
   render() {
     if (this.props.user === null) {
       return (
-        <Segment>
         <Message
           icon="question"
           header="No user to display"
           content="Please search for and select a user"
         />
-        </Segment>
       )
     } else {
       return (
-        <Segment>
+        <div>
           <Image 
             src={ this.props.user.avatar_url }
             bordered
@@ -52,13 +50,13 @@ class DevDetails extends React.Component {
           <Header as="h1">
             <Header.Content>
               <a href={ this.props.user.html_url } target="_blank" rel="noopener noreferrer" >
-                { this.props.user.login }
+            { this.props.user.login }
               </a>
             </Header.Content>
           </Header>
           <Divider clearing />
           <DevRepositories repositories={ this.state.repositories } />
-        </Segment>
+        </div>
       );
     }
   }

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Grid, Header, Icon } from 'semantic-ui-react';
+import { Container, Grid, Header, Segment, Icon } from 'semantic-ui-react';
 import DevSearch from './DevSearch';
 import DevDetails from './DevDetails';
 import 'semantic-ui-css/semantic.min.css';
@@ -31,25 +31,29 @@ class DevBrow extends React.Component {
         <Grid stackable padded columns={2}>
 
           <Grid.Column width={5} as="aside" className="list-container">
-            <Header as="h2" textAlign="center">
+            <Header as="h2" textAlign="center" attached="top">
               <Icon name="list" />Users list
             </Header>
-            <DevSearch 
-              selected={ this.state.displayed_user }
-              selectUser={ this.selectUser.bind(this) }
-              online={ this.state.online }
-              setOnlineMode={ this.setOnlineMode.bind(this) }
-            />
+            <Segment attached>
+              <DevSearch 
+                selected={ this.state.displayed_user }
+                selectUser={ this.selectUser.bind(this) }
+                online={ this.state.online }
+                setOnlineMode={ this.setOnlineMode.bind(this) }
+              />
+            </Segment>
           </Grid.Column>
 
           <Grid.Column width={11} as="article" className="details-container">
-            <Header as="h2" textAlign="center">
+            <Header as="h2" textAlign="center" attached="top">
               <Icon name="user" />User details
             </Header>
-            <DevDetails 
-              user={ this.state.displayed_user }
-              online={ this.state.online }
-            />
+            <Segment attached>
+              <DevDetails 
+                user={ this.state.displayed_user }
+                online={ this.state.online }
+              />
+            </Segment>
           </Grid.Column>
 
         </Grid>
