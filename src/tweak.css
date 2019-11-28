@@ -7,6 +7,12 @@
   content: none;
 }
 
-.details-container h3.ui.header { 
+.details-container h1.ui.header { 
   margin-top: 0;
 }
+
+.details-container h1.ui.header i.icon { 
+  margin-left: .75rem;
+  vertical-align: super;
+}
+

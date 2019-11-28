@@ -10,8 +10,8 @@ class DevList extends React.Component {
         as="li"
         className="item"
         key={ user.id }
-        onClick={ () => this.props.selectUser(user.id) }
-        active={ user.id === this.props.selected }
+        onClick={ () => this.props.selectUser(user) }
+        active={ this.props.selected !== null && this.props.selected.id === user.id }
       >
         <Image avatar src={ user.avatar_url } />
         <List.Content>
@@ -32,9 +32,9 @@ class DevList extends React.Component {
       let content = 'Please try a different search query' + (this.props.online ? '' : ' or go online');
       return (
         <Message
-         icon='id card outline'
-         header='Empty users list'
-        content={ content }
+          icon='id card outline'
+          header='Empty users list'
+          content={ content }
         />
       )
     }

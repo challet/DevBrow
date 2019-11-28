@@ -14,9 +14,9 @@ class DevBrow extends React.Component {
     };
   }
   
-  selectUser(id) {
+  selectUser(user) {
     this.setState({
-      displayed_user: id
+      displayed_user: user
     });
   }
   
