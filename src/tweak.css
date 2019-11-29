@@ -2,6 +2,10 @@ body {
   overflow-y: scroll;
 }
 
+.dimmed.dimmable:not(body) {
+  overflow: initial;
+}
+
 .browser-container ul, .browser-container ol.ui.list {
   list-style: none;
   margin-left: 0;

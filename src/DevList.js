@@ -1,5 +1,5 @@
 import React from 'react';
-import { List, Image, Message } from 'semantic-ui-react';
+import { List, Image, Message, Dimmer, Loader } from 'semantic-ui-react';
 
 
 class DevList extends React.Component {
@@ -22,27 +22,31 @@ class DevList extends React.Component {
   }
   
   render() {
-    if (this.props.searching) {
-      // TODO : replace with a loader or a placeholder
-      return null;
-    } else if (this.props.users.length) {
+    let content;
+    if (this.props.users.length) {
       // display users
-      return (
+      content = (
         <List animated selection as="ol" verticalAlign='middle' size="small">
           { this.props.users.map(this.renderUser.bind(this)) }
         </List>
       );
     } else  {
       // no user to display
-      let content = 'Please try a different search query' + (this.props.online ? '' : ' or go online');
-      return (
+      let message = 'Please try a different search query' + (this.props.online ? '' : ' or go online');
+      content =  (
         <Message
           icon='id card outline'
           header='Empty users list'
-          content={ content }
+          content={ message }
         />
       );
     }
+    return (
+      <Dimmer.Dimmable as="div" dimmed={ this.props.searching }>
+        <Dimmer inverted active={ this.props.searching }><Loader /></Dimmer>
+        { content }
+      </Dimmer.Dimmable>
+    );
   }
 
 }
