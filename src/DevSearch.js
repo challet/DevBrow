@@ -59,11 +59,19 @@ class DevSearch extends React.Component {
    */
   performSearch() {
     restData.searchUser(this.state.current_search, this.props.online)
-      .then((users) => {
+      .then( (users) => {
         this.setState({
           users: users.items,
           searching: false
         });
+      })
+      .catch( (e) => {
+        this.setState({
+          users: [],
+          searching: false
+        });
+        console.error(e);
+        // TODO: notifiy the user
       });
   }
   

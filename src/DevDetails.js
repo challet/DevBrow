@@ -27,7 +27,16 @@ class DevDetails extends React.Component {
           repositories,
           loading: false
         });
+      })
+      .catch( (e) => {
+        this.setState({
+          repositories: [],
+          loading: false
+        });
+        console.error(e);
+        // TODO: notifiy the user
       });
+      
     this.setState({ 
       repositories: [],
       loading: true

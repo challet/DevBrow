@@ -16,10 +16,12 @@ class restData {
     if (online) {
       try {
         const response = await fetch(`https://api.github.com/search/users?q=${encodeURIComponent(query)}`);
+        if (response.status !== 200) {
+          return Promise.reject(new Error(`http ${response.status}`));
+        }
         const json = await response.json();
         return Promise.resolve(json);
       } catch (e) {
-        console.error(e);
         return Promise.reject(e);
       }
     } else {
@@ -37,10 +39,12 @@ class restData {
     if (online) {
       try {
         const response = await fetch(user.repos_url);
+        if (response.status !== 200) {
+          return Promise.reject(new Error(`http ${response.status}`));
+        }
         const json = await response.json();
         return Promise.resolve(json);
       } catch (e) {
-        console.error(e);
         return Promise.reject(e);
       }
     } else {
