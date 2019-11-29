@@ -1,3 +1,7 @@
+body {
+  overflow-y: scroll;
+}
+
 .browser-container ul, .browser-container ol.ui.list {
   list-style: none;
   margin-left: 0;
