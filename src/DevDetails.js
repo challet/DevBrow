@@ -1,7 +1,8 @@
 import React from 'react';
 import { Header, Image, Divider, Message } from 'semantic-ui-react';
 import DevRepositories from './DevRepositories';
-import restData from './restData';
+import onlineFetch from './data/onlineFetch';
+import offlineFetch from './data/offlineFetch';
 
 class DevDetails extends React.Component {
   
@@ -11,6 +12,8 @@ class DevDetails extends React.Component {
       repositories: [],
       loading: false
     };
+    // used in fetchDetails function
+    this.abort_control = new AbortController();
   }
   
   componentDidUpdate(prevProps) {
@@ -21,19 +24,25 @@ class DevDetails extends React.Component {
   }
   
   fetchDetails() {
-    restData.getRepositories(this.props.user, this.props.online)
-      .then((repositories) => {
-        this.setState({
-          repositories,
-          loading: false
-        });
+    // abort previous fetch and set a new controller
+    this.abort_control.abort();
+    this.abort_control = new AbortController();
+    // fetch data
+    (this.props.online ? onlineFetch : offlineFetch).getRepositories(this.props.user, this.abort_control)
+      .then( (repositories) => {
+        if (repositories) {
+          this.setState({
+            repositories,
+            loading: false
+          });
+        }
       })
       .catch( (e) => {
+        console.error(e);
         this.setState({
           repositories: [],
           loading: false
         });
-        console.error(e);
         // TODO: notifiy the user
       });
       

@@ -1,9 +1,10 @@
 import React from 'react';
 import { Form, Divider, Input, Checkbox } from 'semantic-ui-react';
 import DevList from './DevList';
-import restData from './restData';
+import onlineFetch from './data/onlineFetch';
+import offlineFetch from './data/offlineFetch';
 
-const KEY_TYPE_DELAY = 200;
+const KEY_TYPE_DELAY = 250;
 
 class DevSearch extends React.Component {
   
@@ -16,7 +17,11 @@ class DevSearch extends React.Component {
     };
     // used in requestSearch function
     this.search_timer = null;
-    // 
+    // used in performSearch function
+    this.abort_control = new AbortController();
+  }
+  
+  componentDidMount() {
     this.performSearch();
   }
   
@@ -26,6 +31,12 @@ class DevSearch extends React.Component {
       this.setState({ searching: true });
       this.performSearch();
     }
+  }
+  
+  componentWillUnmount() {
+    console.log('unmount');
+    clearTimeout(this.search_timer);
+    this.abort_control.abort();
   }
   
   /*
@@ -58,12 +69,18 @@ class DevSearch extends React.Component {
    *  Perform an async search and update the state
    */
   performSearch() {
-    restData.searchUser(this.state.current_search, this.props.online)
+    // abort previous fetch and set a new controller
+    this.abort_control.abort();
+    this.abort_control = new AbortController();
+    // fetch data
+    (this.props.online ? onlineFetch : offlineFetch).searchUser(this.state.current_search, this.abort_control)
       .then( (users) => {
-        this.setState({
-          users: users.items,
-          searching: false
-        });
+        if (users) {
+          this.setState({
+            users: users.items,
+            searching: false
+          });
+        }
       })
       .catch( (e) => {
         this.setState({
