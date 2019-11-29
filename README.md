@@ -1,21 +1,18 @@
-## Notes
+## Summary
 
-* The interface has been built with https://github.com/Semantic-Org/Semantic-UI-React (it has the same purpose than Bootstrap) and https://github.com/Semantic-Org/Semantic-UI-CSS (default build, for cusom build please use https://github.com/Semantic-Org/Semantic-UI).
-* There is a [search module](https://react.semantic-ui.com/modules/search/) that could be used as a more direct way for the [DevSearch](src/DevSearch.js) component.
+Example of React app using [Semantic-UI-React](https://github.com/Semantic-Org/Semantic-UI-React) components.
+It browses github users and their repositories through the API. Offline mode available for test purpose, loading local json files.
+
+* The uses [Semantic-UI-CSS](https://github.com/Semantic-Org/Semantic-UI-CSS) which is the default build, for customization and theming see [Semantic-UI](https://github.com/Semantic-Org/Semantic-UI)).
 * This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-### Possible additions
+## Installation
 
-* Paginate the users list (`?page` query parameter)
-* Get the full user data (`users/{id}` endpoint)
-* Display followers, following, organizations, gists and starred repos as new sections aside the repositories level
-* Cache requested data
-* Internationalization
-
-### Issues found
-
-* https://github.com/Semantic-Org/Semantic-UI/issues/6902
-
+```shell
+git clone git@github.com:challet/DevBrow.git
+cd DevBrow
+npm install
+```
 
 ## Available Scripts
 
@@ -53,33 +50,3 @@ If you aren’t satisfied with the build tool and configuration choices, you can
 Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
 
 You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
