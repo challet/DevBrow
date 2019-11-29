@@ -53,4 +53,4 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 
 ### `npm run deploy`
 
-Deploy the built version on the branch. It aims to be delpoyed on GitHub pages, more about it [here](https://create-react-app.dev/docs/deployment/#github-pages).
+Deploy the built version on the `gh-pages` branch. It aims to be delpoyed on GitHub pages, more about it [here](https://create-react-app.dev/docs/deployment/#github-pages).
