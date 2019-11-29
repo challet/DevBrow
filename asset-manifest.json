@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/DevBrow/static/css/main.f6c739b2.chunk.css",
+    "main.css": "/DevBrow/static/css/main.17e7b30c.chunk.css",
     "main.js": "/DevBrow/static/js/main.d8dbf96a.chunk.js",
     "main.js.map": "/DevBrow/static/js/main.d8dbf96a.chunk.js.map",
     "runtime-main.js": "/DevBrow/static/js/runtime-main.8032767f.js",
@@ -9,17 +9,17 @@
     "static/js/2.364da2a9.chunk.js": "/DevBrow/static/js/2.364da2a9.chunk.js",
     "static/js/2.364da2a9.chunk.js.map": "/DevBrow/static/js/2.364da2a9.chunk.js.map",
     "index.html": "/DevBrow/index.html",
-    "precache-manifest.54e691f75b345c6b8926477a5618c1aa.js": "/DevBrow/precache-manifest.54e691f75b345c6b8926477a5618c1aa.js",
+    "precache-manifest.1cd091ccde69334f36cd972ecbd4127b.js": "/DevBrow/precache-manifest.1cd091ccde69334f36cd972ecbd4127b.js",
     "service-worker.js": "/DevBrow/service-worker.js",
     "static/css/2.dc669db0.chunk.css.map": "/DevBrow/static/css/2.dc669db0.chunk.css.map",
-    "static/css/main.f6c739b2.chunk.css.map": "/DevBrow/static/css/main.f6c739b2.chunk.css.map",
+    "static/css/main.17e7b30c.chunk.css.map": "/DevBrow/static/css/main.17e7b30c.chunk.css.map",
     "static/media/semantic.min.css": "/DevBrow/static/media/outline-icons.ef60a4f6.woff"
   },
   "entrypoints": [
     "static/js/runtime-main.8032767f.js",
     "static/css/2.dc669db0.chunk.css",
     "static/js/2.364da2a9.chunk.js",
-    "static/css/main.f6c739b2.chunk.css",
+    "static/css/main.17e7b30c.chunk.css",
     "static/js/main.d8dbf96a.chunk.js"
   ]
 }
