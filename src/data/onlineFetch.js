@@ -1,15 +1,15 @@
 class onlineFecth {
   
-  static async runRequest(url, abort_control) {
+  static async runRequest(url, signal) {
     try {
       const response = await fetch(url, {
-        signal: abort_control.signal
+        signal: signal
       });
       if (response.status !== 200) {
         return Promise.reject(new Error(`http ${response.status}`));
       }
       const json = await response.json();
-      if (abort_control.aborted) {
+      if (signal.aborted) {
         return Promise.resolve(false);
       } else {
         return Promise.resolve(json);
@@ -19,21 +19,25 @@ class onlineFecth {
     }
   }
   
-  static searchUser(query, abort_control) {
-    // No search query :no results
+  static searchUser(query, signal) {
+    // No search query : no results
     if (query === '') {
-      return Promise.resolve({
-        total_count: 0,
-        incomplete_results: false,
-        items: []
+      return new Promise( (resolve) => {
+        setTimeout( () => {
+          resolve({
+            total_count: 0,
+            incomplete_results: false,
+            items: []
+          });
+        }, 0);
       });
     } else {
-      return this.runRequest(`https://api.github.com/search/users?q=${encodeURIComponent(query)}`, abort_control);
+      return this.runRequest(`https://api.github.com/search/users?q=${encodeURIComponent(query)}`, signal);
     }
   }
   
-  static getRepositories(user, abort_control) {
-    return this.runRequest(user.repos_url, abort_control);
+  static getRepositories(user, signal) {
+    return this.runRequest(user.repos_url, signal);
   }
   
 }

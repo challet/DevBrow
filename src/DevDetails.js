@@ -28,7 +28,7 @@ class DevDetails extends React.Component {
     this.abort_control.abort();
     this.abort_control = new AbortController();
     // fetch data
-    (this.props.online ? onlineFetch : offlineFetch).getRepositories(this.props.user, this.abort_control)
+    (this.props.online ? onlineFetch : offlineFetch).getRepositories(this.props.user, this.abort_control.signal)
       .then( (repositories) => {
         if (repositories) {
           this.setState({

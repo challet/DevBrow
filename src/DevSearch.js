@@ -22,7 +22,9 @@ class DevSearch extends React.Component {
   }
   
   componentDidMount() {
-    this.performSearch();
+    if (!this.abort_control.signal.aborted) {
+      this.performSearch();
+    }
   }
   
   componentDidUpdate(prevProps) {
@@ -34,7 +36,6 @@ class DevSearch extends React.Component {
   }
   
   componentWillUnmount() {
-    console.log('unmount');
     clearTimeout(this.search_timer);
     this.abort_control.abort();
   }
@@ -73,7 +74,7 @@ class DevSearch extends React.Component {
     this.abort_control.abort();
     this.abort_control = new AbortController();
     // fetch data
-    (this.props.online ? onlineFetch : offlineFetch).searchUser(this.state.current_search, this.abort_control)
+    (this.props.online ? onlineFetch : offlineFetch).searchUser(this.state.current_search, this.abort_control.signal)
       .then( (users) => {
         if (users) {
           this.setState({
