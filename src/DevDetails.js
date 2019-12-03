@@ -24,32 +24,27 @@ class DevDetails extends React.Component {
   }
   
   fetchDetails() {
-    // abort previous fetch and set a new controller
+    // abort the previous fetch, set a new controller and keep a local reference
     this.abort_control.abort();
-    this.abort_control = new AbortController();
+    const abort_control = new AbortController();
+    this.abort_control = abort_control;
     // fetch data
-    (this.props.online ? onlineFetch : offlineFetch).getRepositories(this.props.user, this.abort_control.signal)
+    (this.props.online ? onlineFetch : offlineFetch).getRepositories(this.props.user, abort_control.signal)
       .then( (repositories) => {
-        if (repositories) {
-          this.setState({
-            repositories,
-            loading: false
-          });
+        if (!abort_control.signal.aborted) {
+          this.setState({ repositories, loading: false });
         }
       })
       .catch( (e) => {
+        // if not aborted (code 20 is AbortError)
+        if (!(e instanceof DOMException) || e.code !== 20) {
+          this.setState({ repositories: [], loading: false });
+          // TODO: notifiy the user
+        }
         console.error(e);
-        this.setState({
-          repositories: [],
-          loading: false
-        });
-        // TODO: notifiy the user
       });
       
-    this.setState({ 
-      repositories: [],
-      loading: true
-    });
+    this.setState({ repositories: [], loading: true });
   }
   
   render() {

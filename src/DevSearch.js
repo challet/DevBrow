@@ -22,9 +22,7 @@ class DevSearch extends React.Component {
   }
   
   componentDidMount() {
-    if (!this.abort_control.signal.aborted) {
-      this.performSearch();
-    }
+    this.performSearch();
   }
   
   componentDidUpdate(prevProps) {
@@ -60,36 +58,31 @@ class DevSearch extends React.Component {
     }, KEY_TYPE_DELAY);
     
     // still update the state
-    this.setState({
-      searching: true,
-      current_search: query
-    });
+    this.setState({ searching: true, current_search: query });
   }
   
   /*
    *  Perform an async search and update the state
    */
   performSearch() {
-    // abort previous fetch and set a new controller
+    // abort the previous fetch, set a new controller and keep a local reference
     this.abort_control.abort();
-    this.abort_control = new AbortController();
+    const abort_control = new AbortController();
+    this.abort_control = abort_control;
     // fetch data
-    (this.props.online ? onlineFetch : offlineFetch).searchUser(this.state.current_search, this.abort_control.signal)
+    (this.props.online ? onlineFetch : offlineFetch).searchUser(this.state.current_search, abort_control.signal)
       .then( (users) => {
-        if (users) {
-          this.setState({
-            users: users.items,
-            searching: false
-          });
+        if (!abort_control.signal.aborted) {
+          this.setState({ users: users.items, searching: false });
         }
       })
       .catch( (e) => {
-        this.setState({
-          users: [],
-          searching: false
-        });
+        // if not aborted (code 20 is AbortError)
+        if (!(e instanceof DOMException) || e.code !== 20) {
+          this.setState({ users: [], searching: false });
+          // TODO: notifiy the user
+        }
         console.error(e);
-        // TODO: notifiy the user
       });
   }
   

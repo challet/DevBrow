@@ -2,41 +2,35 @@ class onlineFecth {
   
   static async runRequest(url, signal) {
     try {
-      const response = await fetch(url, {
-        signal: signal
-      });
+      const response = await fetch(url, { signal });
       if (response.status !== 200) {
-        return Promise.reject(new Error(`http ${response.status}`));
+        throw new Error(`http ${response.status}`);
       }
       const json = await response.json();
-      if (signal.aborted) {
-        return Promise.resolve(false);
-      } else {
+      if (!signal.aborted) {
         return Promise.resolve(json);
+      } else {
+        throw new DOMException('The operation was aborted [json].', 'AbortError');
       }
     } catch (e) {
       return Promise.reject(e);
     }
   }
   
-  static searchUser(query, signal) {
+  static async searchUser(query, signal) {
     // No search query : no results
     if (query === '') {
-      return new Promise( (resolve) => {
-        setTimeout( () => {
-          resolve({
-            total_count: 0,
-            incomplete_results: false,
-            items: []
-          });
-        }, 0);
+      return Promise.resolve({
+        total_count: 0,
+        incomplete_results: false,
+        items: []
       });
     } else {
       return this.runRequest(`https://api.github.com/search/users?q=${encodeURIComponent(query)}`, signal);
     }
   }
   
-  static getRepositories(user, signal) {
+  static async getRepositories(user, signal) {
     return this.runRequest(user.repos_url, signal);
   }
   
